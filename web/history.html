@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link href="css/loading.css" rel="stylesheet">
+
+    <script src="./js/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="./js/lib/nebPay.min.js"></script>
+    <script src="./js/lib/nebulas.min.js"></script>
+    <script src="./js/common.js"></script>
+
+    <style>
+        body{
+            margin: 0;
+        }
+        #content{
+            width: 100%;
+            height: 100vh;
+        }
+        #content .item,
+        #content .summary{
+            font-size: 1em;
+            color: #333;
+            text-align: center;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+
+            display: flex;
+
+            padding: 12px;
+        }
+
+        #content .item .index,
+        #content .summary .index{
+            width: 15%;
+        }
+        #content .item .time,
+        #content .summary .time{
+            width: 35%;
+        }
+        #content .item .count,
+        #content .summary .count{
+            width: 25%;
+        }
+        #content .item .award,
+        #content .summary .award{
+            width: 25%;
+        }
+
+        #content .summary{
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        #content .item:active{
+            background-color: #ddd;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div id="loading" style="display: none">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+
+<div id="template" style="display: none">
+    <div class="rank-item">
+        <div class="item" data-id="">
+            <div class="index"></div>
+            <div class="time"></div>
+            <div class="count"></div>
+            <div class="award"></div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+
+    <div class="summary" style="display: none">
+        <div class="index">序号</div>
+        <div class="time">日期</div>
+        <div class="count">参与人数</div>
+        <div class="award">总奖励</div>
+    </div>
+
+    <div class="items" style="display: none">
+
+    </div>
+
+    <div class="null" style="display: none">
+        <p style="text-align: center; padding-top: 40px; margin: 0 auto">哎呀...还没有历史奖励呢!</p>
+    </div>
+
+    <div class="error" style="display: none">
+        <p style="text-align: center; padding-top: 40px; margin: 0 auto">呃...好像网络出问题了!</p>
+    </div>
+
+</div>
+
+<script>
+
+    /*查询历史奖励*/
+    function getTotalNumAndTotalAward(callback_ok, callback_null, callback_error) {
+        /*初始化合约*/
+        var contract_value = new ContractValue();
+        var from = Nebulas.Account.NewAccount().getAddressString();
+        var contract_fn = {
+            "function": "getTotalNumAndTotalAwardByDate"
+        };
+
+        neb.api.call(from, dapp_address, contract_value.value, contract_value.nonce,
+            contract_value.gas_price, contract_value.gas_limit, contract_fn)
+            .then(function (resp) {
+                if(resp.result !== "false" && resp.result !== "null" && resp.result.substr(0, 5) !== "Error" && resp.result  !== "-1"){
+                    callback_ok(JSON.parse(JSON.parse(resp.result)));
+                }else{
+                    callback_null();
+                }
+                console.log("now date ... : " + resp);
+            }).catch(function (err) {
+                callback_error();
+                console.log("error:" + err.message);
+            });
+    }
+
+    $(function () {
+
+        $("#loading").show();
+        getTotalNumAndTotalAward(function (datas) {
+
+            var $html = $("#content .items");
+            $html.empty();
+            for(var i=0; i < datas.length; i++){
+                var totalNum = datas[i].totalNum;
+                var totalAward = datas[i].totalAward;
+                var date = datas[i].date;
+
+                var $item = $("#template .rank-item").clone();
+                $item.find(".index").text(i + 1);
+                $item.find(".time").text(date);
+                $item.find(".item").attr("data-id", date);
+                $item.find(".count").text(totalNum);
+                var award = parseFloat((totalAward) / 1000000000000000000);
+                $item.find(".award").text(award + " NAS");
+                $html.append($item.html());  /*必须是html()*/
+            }
+
+            $("#content .items .item").off("click").on("click", function () {
+                var date = $(this).attr("data-id");
+                window.location.href = "./history-detail.html?date="+date;
+            });
+
+            $("#content .summary").show();
+            $("#content .items").show();
+            $("#content .null").hide();
+            $("#content .error").hide();
+            $("#loading").hide();
+        }, function () {  /*空结果*/
+            $("#content .null").show();
+            $("#content .error").hide();
+            $("#content .summary").hide();
+            $("#content .items").hide();
+            $("#loading").hide();
+        }, function () {  /*出现错误*/
+            $("#content .error").show();
+            $("#content .null").hide();
+            $("#content .summary").hide();
+            $("#content .items").hide();
+            $("#loading").hide();
+        });
+
+    });
+</script>
+
+</body>
+</html>
