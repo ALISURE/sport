@@ -1,11 +1,18 @@
 
 var Nebulas = require("nebulas");
 var NebPay = require("nebpay");
+
+// var neb = new Nebulas.Neb();
+// neb.setRequest(new Nebulas.HttpRequest("https://testnet.nebulas.io"));
+// var nebPay = new NebPay();
+// var callbackUrl =NebPay.config.testnetUrl;
+// var dapp_address = "n1nHyv3VVU2F3zcstTG4hu2TUn6wRLUTqts";
+
 var neb = new Nebulas.Neb();
-neb.setRequest(new Nebulas.HttpRequest("https://testnet.nebulas.io"));
+neb.setRequest(new Nebulas.HttpRequest("https://mainnet.nebulas.io"));
 var nebPay = new NebPay();
-var callbackUrl =NebPay.config.testnetUrl;
-var dapp_address = "n1nHyv3VVU2F3zcstTG4hu2TUn6wRLUTqts";
+var callbackUrl =NebPay.config.mainnetUrl;
+var dapp_address = "n1i5LSZa8MCNNtw4aPaTP5wER2xkm9HGjPf";
 
 /*封装合约参数*/
 var ContractValue = function () {
@@ -25,7 +32,7 @@ function getSearchValue(search, key) {
         for (i; i < len; i++) {
             var value = values[i].split("=");
             if (value[0] === key) {
-                return value[1];
+                return decodeURI(value[1]);
             }
         }
     }
