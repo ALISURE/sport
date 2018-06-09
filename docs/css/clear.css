@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+/*缺省值begin*/
+html {
+    margin: 0;
+    padding: 0;
+    -ms-touch-action: none;
+    touch-action: none;
+    -webkit-touch-callout: none;
+    /* 阻止windows Phone 的默认触摸事件 */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: Tahoma, Geneva, sans-serif;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+a:active, a:visited {
+    outline: none;
+}
+
+p, ul, li, form, h1, h2, h3, h4, h5, h6, dl, dt, dd, img, div, table, td, th, input, textarea {
+    margin: 0;
+    padding: 0;
+}
+
+input, textarea {
+    font-family: Tahoma, Geneva, sans-serif;
+    outline: none;
+    font-size: 12px;
+}
+
+table, td {
+    border-collapse: collapse;
+}
+
+ul, li, dl, dt, dd, ol {
+    list-style: none;
+}
+
+.wrap {
+    width: 1040px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img {
+    border: 0 none;
+    overflow: hidden;
+}
+
+em, i {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.dh-row:after,
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.dh-row,
+.clearfix {
+    zoom: 1;
+}
+
+.fontlh {
+    font: 12px/1.5 tahoma, arial, \5b8b\4f53;
+}
+
+.red {
+    color: #ee383e;
+}
+
+.blue {
+    color: #1aadc0;
+}
+
+.html-data {
+    word-wrap: break-word;
+    line-height: 2;
+    color: #333;
+    font-size: 14px;
+}
+
+.html-data img {
+    max-width: 100%;
+    vertical-align: text-bottom;
+}
+
+/*缺省值end*/

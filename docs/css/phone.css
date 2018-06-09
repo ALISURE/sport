@@ -1,0 +1,176 @@
+#pageContain {
+    overflow: hidden;
+}
+#pageContain .page {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#pageContain .contain {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: relative;
+    z-index: 40;
+}
+#pageContain .page .container{height: 100%;}
+#pageContain .current .contain, .slide .contain {
+    display: block;
+}
+#pageContain .current {
+    display: block;
+}
+#pageContain .slide {
+    display: block;
+    z-index: 2;
+}
+#pageContain .swipe {
+    display: block;
+    z-index: 3;
+    transition-duration: 0ms !important;
+    -webkit-transition-duration: 0ms !important;
+}
+
+#pageContain .contain>div>img{
+    max-width: 95vw;
+    min-width: 90vw;
+    max-height: 95vw;
+    min-height: 90vh;
+    border-radius: 30px;
+    opacity: 0.8;
+}
+
+#pageContain .page1 {
+    background: #3984e8;
+}
+#pageContain .page2 {
+     background: #252935;
+ }
+#pageContain .page3 {
+    background: #324450;
+}
+#pageContain .page4 {
+    background: #5c6d7f;
+}
+#pageContain .page5 {
+    background: #584647;
+}
+#pageContain .page6 {
+    background: #183764;
+}
+
+
+.page1-content,
+.page2-content,
+.page3-content,
+.page4-content,
+.page5-content,
+.page6-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.page1-content .pc-main>div{
+    text-align: center;
+}
+.page1-content .pc-logo {
+    height: 88px;
+    position: relative;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+}
+.page1-content .pc-logo>div{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+.page1-content .pc-logo .logo {
+    height: 70px;
+    padding: 10px 0
+}
+.page1-content .pc-logo .appname {
+    letter-spacing: 3px;
+    font-size: 28px;
+    line-height: 32px;
+    margin-top: 8px;
+}
+.page1-content .pc-logo .version {
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+.page1-content .pc-btns {
+    margin-top: 40px;
+    font-size: 0;
+}
+.page1-content .pc-btns .btn {
+    display: inline-block;
+    width: 172px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 16px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+.page1-content .pc-btns .btn:hover {
+    background-color: rgba(255, 255, 255, .3);
+}
+.page1-content .pc-btns .ico {
+    float: left;
+    width: 36px;
+    height: 36px;
+    background: no-repeat left top;
+    margin: 5px 6px 0 32px;
+    background-size: 36px 36px;
+}
+.page1-content .pc-btns .ico-android {
+    background-image: url(../imgs/icon_android.png);
+}
+.page1-content .pc-btns .txt {
+    float: left;
+}
+.page1-content .pc-erwei {
+    margin-top: 36px;
+    font-size: 16px;
+}
+.page1-content .pc-erwei img{
+    margin-top: 20px;
+    width: 180px;
+    height: 180px;
+}
+
+
+#navBar {
+    z-index: 60;
+    position: absolute;
+    top: 40%;
+    right: 3%;
+}
+#navBar li {
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all .5s ease;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    overflow: hidden;
+    text-indent: -300%;
+    background: #ccc;
+    background: rgba(200,200,200,.4);
+    box-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+#navBar li:hover{background: rgba(200,200,200,.7);}
+#navBar .active {
+    background: rgba(255,255,255,1);
+}
